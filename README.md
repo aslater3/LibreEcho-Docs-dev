@@ -12,6 +12,17 @@ Static GitHub Pages site for **LibreEcho**, an open operating system and hardwar
 
 The included workflow publishes the site automatically on every push to `main`.
 
+## Browser demo
+
+The dependency-free control-centre demonstration is served from `demo/`. It uses
+the production UI with a browser-local implementation of `/api/v1`, so GitHub
+Pages can demonstrate settings, state transitions, JSON backup/restore and the
+interactive Swagger console without running the native device daemon.
+
+Demo settings persist in `localStorage`; the **Reset demo** control restores the
+deterministic defaults. No passwords, tokens or uploaded configuration files are
+sent off-device by the demo.
+
 ## Custom domain
 
 Add a file named `CNAME` to the repository root containing only the domain, for example:
