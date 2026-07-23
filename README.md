@@ -2,6 +2,11 @@
 
 Static GitHub Pages site for **LibreEcho**, an open operating system and hardware-enablement project for Amazon Echo Gen 2.
 
+See [`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md) for upstream credits,
+third-party licensing boundaries, the Amazon non-affiliation notice, and the
+experimental-use disclaimer. The website's MIT licence applies only to the
+original website source and artwork in this repository.
+
 ## Publish
 
 1. Create an empty GitHub repository.
