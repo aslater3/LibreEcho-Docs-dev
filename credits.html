@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="LibreEcho credits, third-party notices, licences and experimental-use disclaimer.">
+  <meta name="theme-color" content="#090b12">
+  <title>Credits, licences and use disclaimer — LibreEcho</title>
+  <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/css/site.css">
+  <link rel="stylesheet" href="assets/css/credits.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <a class="brand" href="index.html" aria-label="LibreEcho home">
+      <img src="assets/images/mark.svg" alt="" width="34" height="34">
+      <span>LibreEcho</span>
+    </a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">Menu</button>
+    <nav id="primary-nav" class="primary-nav" aria-label="Primary navigation">
+      <a href="index.html#mission">Mission</a>
+      <a href="index.html#progress">Progress</a>
+      <a href="index.html#architecture">Architecture</a>
+      <a href="index.html#roadmap">Roadmap</a>
+      <a href="index.html#contribute">Contribute</a>
+      <a href="credits.html" aria-current="page">Credits</a>
+      <a class="button button-small demo-button" href="demo/">Live demo</a>
+      <a class="button button-small coffee-button" href="https://buymeacoffee.com/libreecho" target="_blank" rel="noopener">Buy me a beer</a>
+      <a class="button button-small" href="https://github.com/" data-repo-link>View on GitHub</a>
+    </nav>
+  </header>
+
+  <main id="main" class="credits-page section-shell">
+    <section class="credits-hero">
+      <p class="eyebrow"><span class="pulse"></span> Open source, attribution and responsibility</p>
+      <h1>Credits, licences<br><span>and use disclaimer.</span></h1>
+      <p class="hero-lead">LibreEcho stands on the work of open-source developers, reverse-engineering communities and protocol researchers. This page records the principal credits and the boundaries around using the project.</p>
+    </section>
+
+    <div class="credits-layout">
+      <aside class="credits-index" aria-label="On this page">
+        <p class="section-label">On this page</p>
+        <a href="#website">Website licence</a>
+        <a href="#research">Amazon Echo and MediaTek research</a>
+        <a href="#kernel">Linux and embedded support</a>
+        <a href="#shairport">Shairport Sync</a>
+        <a href="#amazon">Amazon disclaimer</a>
+        <a href="#use">Experimental use</a>
+      </aside>
+
+      <div class="credits-content">
+        <section id="website" class="notice-card">
+          <p class="section-label">01 / Website</p>
+          <h2>LibreEcho website</h2>
+          <p>Unless a file or component says otherwise, the original website source and original artwork in this repository are Copyright (c) 2026 LibreEcho contributors and are available under the <a href="LICENSE">MIT License</a>.</p>
+          <p>The website licence applies only to this website repository. It does not relicense third-party software, firmware, Linux kernel code, device images, protocols, trademarks, or other material used by the wider LibreEcho project.</p>
+        </section>
+
+        <section id="research" class="notice-card">
+          <p class="section-label">02 / Research</p>
+          <h2>Amazon Echo and MediaTek research</h2>
+          <p>The wider LibreEcho development work draws on publicly available reverse-engineering and device-enablement work. These projects are acknowledged as upstream research and tooling; LibreEcho does not claim their work as its own.</p>
+          <ul>
+            <li><a href="https://github.com/xyzz/amonet">Amonet</a> — MediaTek BootROM exploit research and exploit-chain foundations.</li>
+            <li><a href="https://github.com/R0rt1z2/amonet">R0rt1z2/amonet</a> — Amazon and MediaTek BootROM/LK exploit-chain work.</li>
+            <li><a href="https://github.com/k4y0z">k4y0z</a> — Amazon/MediaTek exploit, bootloader and device research.</li>
+            <li><a href="https://github.com/bkerler/mtkclient">mtkclient</a> — MediaTek communication, flashing and payload infrastructure. Related LibreEcho development notes identify <code>generic_stage1.c</code> as adapted from mtkclient and credit B. Kerler and k4y0z.</li>
+          </ul>
+          <p>The Echo Gen 2 / MT8163 work also includes an independent <code>amonet-k32</code> development repository. Any source, payload, binary or tool distributed from it must retain its own component-level copyright and licence notices.</p>
+        </section>
+
+        <section id="kernel" class="notice-card">
+          <p class="section-label">03 / Platform</p>
+          <h2>Linux and embedded support code</h2>
+          <p>The LibreEcho kernel work is based on Linux and remains subject to the Linux kernel’s GPL-2.0-or-later licensing and the individual copyright, author and licence notices present in the source tree. See <a href="https://github.com/aslater3/LibreEcho-Kernel">LibreEcho-Kernel</a>.</p>
+          <p>Some low-level support components retain separate notices, including code copyrighted by Jörg Mische and components distributed under GPL and BSD-style licences. Those notices must remain with the applicable source or binary distribution.</p>
+        </section>
+
+        <section id="shairport" class="notice-card">
+          <p class="section-label">04 / Audio</p>
+          <h2>Shairport Sync</h2>
+          <p>LibreEcho currently uses <a href="https://github.com/mikebrady/shairport-sync">Shairport Sync</a> for AirPlay audio support.</p>
+          <ul>
+            <li>Project author and maintainer: Mike Brady.</li>
+            <li>When distributing Shairport Sync, retain its upstream <a href="https://github.com/mikebrady/shairport-sync/blob/master/COPYING"><code>COPYING</code></a> file and complete <a href="https://github.com/mikebrady/shairport-sync/tree/master/LICENSES"><code>LICENSES/</code></a> directory.</li>
+            <li>Record the exact source revision used by LibreEcho with any binary distribution.</li>
+          </ul>
+          <p>Shairport Sync acknowledges James Wah (<code>abrasive</code>), James Laird and other Shairport contributors. Its AirPlay 2 documentation also acknowledges JD Smith, <code>ejurgensen</code>, <code>ckdo</code>, <code>invano</code> and Charles Omer, and notes that much of its AirPlay 2 functionality is based on ideas developed in <a href="https://github.com/openairplay/airplay2-receiver">openairplay/airplay2-receiver</a>.</p>
+          <p>Those acknowledgements belong to the upstream project; LibreEcho does not claim their work as its own.</p>
+        </section>
+
+        <section id="amazon" class="notice-card warning-card">
+          <p class="section-label">05 / Trademark</p>
+          <h2>Amazon disclaimer</h2>
+          <p>LibreEcho is an independent community project. It is <strong>not affiliated with, associated with, authorised by, sponsored by, or endorsed by Amazon.com, Inc., Amazon Technologies, Inc., or any of their affiliates</strong>. “Amazon”, “Echo” and related names and marks are used only to identify the hardware supported by this project and remain the property of their respective owners.</p>
+        </section>
+
+        <section id="use" class="notice-card warning-card">
+          <p class="section-label">06 / Responsibility</p>
+          <h2>Experimental use and limitations</h2>
+          <p>LibreEcho is early-stage experimental software and documentation for research, educational, interoperability and hardware-reuse purposes. It may be incomplete, unstable, inaccurate or unsuitable for any particular purpose. Use it entirely at your own risk and only on hardware and systems that you own or are authorised to modify.</p>
+          <p>Installing or using LibreEcho may erase data, change device software, disable features, cause loss of functionality or permanently damage hardware. You are responsible for backups, device identity, recovery media, lawful use, network security and compliance with applicable laws and third-party terms. Do not use development builds on safety-critical, production or otherwise important systems without independent testing.</p>
+          <p class="legal-copy">TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, LIBREECHO CONTRIBUTORS PROVIDE THIS PROJECT “AS IS” AND DISCLAIM ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, TITLE, NON-INFRINGEMENT, SECURITY, ACCURACY AND AVAILABILITY. TO THE MAXIMUM EXTENT PERMITTED BY LAW, LIBREECHO CONTRIBUTORS WILL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, EXEMPLARY OR DIRECT LOSS OR DAMAGE ARISING FROM OR RELATED TO USE OF THE PROJECT, INCLUDING LOSS OF DATA, HARDWARE DAMAGE, LOSS OF FUNCTIONALITY OR LOSS OF PROFITS.</p>
+          <p>This notice is intended as project documentation, not as legal advice. The applicable law in your jurisdiction may limit some exclusions or limitations.</p>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer section-shell">
+    <div class="brand footer-brand"><img src="assets/images/mark.svg" alt="" width="30" height="30"><span>LibreEcho</span></div>
+    <p>An independent open-source project. Not affiliated with, authorised by, or endorsed by Amazon.</p>
+    <p><a href="credits.html">Credits, licences and use disclaimer</a></p>
+    <p class="last-updated">Status reviewed July 2026</p>
+    <p>Built for hardware that deserves another life.</p>
+  </footer>
+  <script src="assets/js/site.js"></script>
+</body>
+</html>
