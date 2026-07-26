@@ -57,4 +57,12 @@ Open `http://localhost:8000`.
 
 ## Project status language
 
-The progress cards are intentionally high-level. Update their wording in `index.html` as hardware enablement advances.
+The current product story is deliberately broader than hardware bring-up:
+LibreEcho is now at **beta** status, retaining the Echo Gen 2 hardware while
+adding working Wi-Fi, local voice processing, OpenWakeWord, Local LLM support,
+AirPlay 2, streamed announcements and LED EQ visualisation. The homepage
+separates working capabilities from remaining integration work such as broader
+Home Assistant/Wyoming support.
+
+The progress cards are intentionally high-level. Update their wording in
+`index.html` as hardware enablement advances.
