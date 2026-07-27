@@ -15,7 +15,11 @@ original website source and artwork in this repository.
 4. Commit and push to the `main` branch.
 5. In **Settings → Pages**, select **GitHub Actions** as the source.
 
-The included workflow publishes the site automatically on every push to `main`.
+The included workflow publishes the dev site on every push to `dev`. It also
+refreshes every six hours by rendering the latest LibreEcho-UI source into the
+current Control Centre captures. Add the fine-grained `UI_REPOSITORY_TOKEN`
+Actions secret with read-only Contents access to the private UI repository to
+enable source checkout; otherwise the last committed captures remain in place.
 
 ## Browser demo
 
