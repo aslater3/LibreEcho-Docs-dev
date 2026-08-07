@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="LibreEcho is an open-source effort to give Amazon Echo Gen 2 hardware a useful life beyond its original software.">
+  <meta name="description" content="LibreEcho moves the Amazon Echo Gen 2 from a frozen 2015-era stock kernel onto a modern Linux 6.1 LTS-based platform: open, local-first and repairable.">
   <meta name="theme-color" content="#090b12">
   <meta property="og:title" content="LibreEcho — Free the hardware">
-  <meta property="og:description" content="An open operating system and community-led hardware enablement project for Amazon Echo Gen 2.">
+  <meta property="og:description" content="An open operating system that replaces the Echo Gen 2's stock Linux 3.18 base with a modern Linux 6.1 LTS-based kernel and a local-first control centre.">
   <meta property="og:image" content="assets/images/social-card.jpg">
   <title>LibreEcho — Free the hardware</title>
   <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml">
@@ -24,6 +24,7 @@
     <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">Menu</button>
     <nav id="primary-nav" class="primary-nav" aria-label="Primary navigation">
       <a href="#mission">Mission</a>
+      <a href="#proof">In action</a>
       <a href="#progress">Progress</a>
       <a href="#architecture">Architecture</a>
       <a href="#roadmap">Roadmap</a>
@@ -40,25 +41,26 @@
       <div class="hero-copy">
         <p class="eyebrow"><span class="pulse"></span> Community hardware liberation project</p>
         <h1>Free the hardware.<br><span>Keep the voice.</span></h1>
-        <p class="hero-lead">LibreEcho is replacing the stock Linux 3.18 software base with a mainline Linux 6.1-based kernel and an open operating system for the Amazon Echo Gen 2.</p>
-        <p class="status-note"><span class="status-dot"></span>Stock Linux 3.18 → LibreEcho Linux 6.1 · PRD validation ongoing</p>
+        <p class="hero-lead">The Echo Gen 2 shipped in 2017 and was frozen on a 2015-era kernel. LibreEcho moves it onto a modern Linux 6.1 LTS-based platform, with an open operating system, local-first voice and a control centre you can run on your own network.</p>
+        <p class="status-note"><span class="status-dot"></span>Stock Linux 3.18 → LibreEcho Linux 6.1 · real hardware, under active validation</p>
         <div class="hero-actions">
           <a class="button demo-button" href="demo/">Open the live control-centre demo</a>
-          <a class="text-link" href="#progress">See current progress <span aria-hidden="true">→</span></a>
+          <a class="text-link" href="#proof">See it running <span aria-hidden="true">→</span></a>
+          <a class="text-link" href="#progress">Track the progress <span aria-hidden="true">→</span></a>
           <a class="text-link" href="https://github.com/" data-repo-link>Explore the source <span aria-hidden="true">→</span></a>
         </div>
         <ul class="hero-stats" aria-label="Project highlights">
-          <li><strong>Linux 6.1</strong><span>Mainline-based kernel</span></li>
+          <li><strong>Linux 6.1</strong><span>Modern LTS-based kernel</span></li>
           <li><strong>3.18 → 6.1</strong><span>Stock kernel upgrade</span></li>
-          <li><strong>PRD</strong><span>Validated development baseline</span></li>
+          <li><strong>On hardware</strong><span>Validated baseline boots</span></li>
         </ul>
       </div>
       <div class="hero-art" aria-label="Stylised LibreEcho speaker illustration">
         <div class="orb orb-one"></div>
         <div class="orb orb-two"></div>
         <img src="assets/images/echo-hero.svg" alt="A stylised tall smart speaker with an illuminated open-source ring">
-        <div class="status-card status-card-top"><span></span> Linux 6.1 kernel</div>
-        <div class="status-card status-card-bottom"><span></span> Stock 3.18 → open platform</div>
+        <div class="status-card status-card-top"><span></span> Linux 6.1 on MT8163</div>
+        <div class="status-card status-card-bottom"><span></span> AirPlay validated on hardware</div>
       </div>
     </section>
 
@@ -77,13 +79,38 @@
       </div>
     </section>
 
+    <section id="proof" class="section-shell proof-section">
+      <div class="section-heading">
+        <div>
+          <p class="section-label">02 / In action</p>
+          <h2>See it running on real hardware.</h2>
+        </div>
+        <p>The browser demo above is simulated. This section is reserved for proof of life on a real Echo Gen 2: Linux 6.1 booting, AirPlay audio playing and the LED ring responding. Captures land here as validation passes.</p>
+      </div>
+      <div class="proof-grid">
+        <figure class="proof-placeholder">
+          <div class="proof-slot" role="img" aria-label="Placeholder for a video of the Echo Gen 2 running Linux 6.1">
+            <span>Video · Linux 6.1 booting on the Echo</span>
+            <small>Asset pending — add a capture of the boot sequence and control centre</small>
+          </div>
+        </figure>
+        <figure class="proof-placeholder">
+          <div class="proof-slot" role="img" aria-label="Placeholder for an audio demo of AirPlay playback">
+            <span>Audio · AirPlay on the stock speakers</span>
+            <small>Asset pending — add a clip of the validated AirPlay transport</small>
+          </div>
+        </figure>
+      </div>
+      <p class="fine-print">No stock cloud services are involved in these captures: the control plane, audio path and web interface are local.</p>
+    </section>
+
     <section id="progress" class="section-shell progress-section">
       <div class="section-heading">
         <div>
-          <p class="section-label">02 / Progress</p>
+          <p class="section-label">03 / Progress</p>
           <h2>From stock Linux 3.18 to an open Linux 6.1 platform.</h2>
         </div>
-        <p>The Linux 6.1 PRD baseline is bootable and independently verified. Real-world hardware, service, and release validation continues; the site separates validated paths from integration work still in progress.</p>
+        <p>The Linux 6.1 baseline boots on hardware and has passed independent image verification. Real-world hardware, service, and release validation continues; the site separates validated paths from integration work still in progress.</p>
       </div>
       <div class="progress-grid">
         <article class="progress-card complete">
@@ -94,9 +121,9 @@
         </article>
         <article class="progress-card complete">
           <div class="card-icon"><img src="assets/images/icon-boot.svg" alt=""></div>
-          <p class="state">Mainline-based upgrade</p>
+          <p class="state">Modern LTS-based upgrade</p>
           <h3>Linux 6.1 kernel</h3>
-          <p>The current PRD line replaces the stock Linux 3.18 kernel with a standalone, reproducible Linux 6.1-based kernel for MT8163.</p>
+          <p>The current development line replaces the stock Linux 3.18 kernel with a standalone, reproducible Linux 6.1-based kernel for MT8163.</p>
         </article>
         <article class="progress-card complete">
           <div class="card-icon"><img src="assets/images/icon-wifi.svg" alt=""></div>
@@ -112,14 +139,14 @@
         </article>
       </div>
       <p class="fine-print">Status reflects active development and may move quickly. See the repository for test evidence and the latest branch notes.</p>
-      <div class="body-copy status-note" style="margin-top:2rem"><p><strong>Recent wins:</strong> the Linux 6.1 MT8163 kernel line is separated and reproducible; the PRD baseline has passed independent image checks; real AirPlay playback is hardware-validated with duplicated mono carried in stereo PCM; and the bounded Wi-Fi/WMT development choreography is validated. Follow-up fixes and service-integration work remain active.</p></div>
+      <div class="body-copy status-note" style="margin-top:2rem"><p><strong>Recent wins:</strong> the Linux 6.1 MT8163 kernel line is separated and reproducible; the development baseline has passed independent image checks; real AirPlay playback is hardware-validated with duplicated mono carried in stereo PCM; and the bounded Wi-Fi/WMT development choreography is validated. Follow-up fixes and service-integration work remain active.</p></div>
     </section>
 
     <section id="current-ui" class="current-ui-section">
       <div class="section-shell">
         <div class="section-heading">
           <div>
-            <p class="section-label">03 / Current UI</p>
+            <p class="section-label">04 / Current UI</p>
             <h2>Latest Control Centre build.</h2>
           </div>
           <p>These captures are rendered from the latest LibreEcho-UI source during the dev Pages build. The interactive browser demo remains available above.</p>
@@ -134,7 +161,7 @@
 
     <section id="architecture" class="architecture-section">
       <div class="section-shell">
-        <p class="section-label">04 / Architecture</p>
+        <p class="section-label">05 / Architecture</p>
         <div class="architecture-grid">
           <div>
             <h2>A complete local-first stack.</h2>
@@ -155,10 +182,10 @@
     <section id="roadmap" class="section-shell roadmap-section">
       <div class="section-heading">
         <div>
-        <p class="section-label">05 / Roadmap</p>
+        <p class="section-label">06 / Roadmap</p>
           <h2>Make the Echo useful again.</h2>
         </div>
-        <p>These are the ambitions guiding LibreEcho from the current PRD development baseline to a stable, useful local-first assistant.</p>
+        <p>These are the ambitions guiding LibreEcho from the current validated baseline to a stable, useful local-first assistant.</p>
       </div>
       <div class="roadmap-grid">
         <article class="roadmap-card complete">
@@ -189,7 +216,7 @@
           <span class="roadmap-number">05</span>
           <p class="state">Planned</p>
           <h3>Home Assistant integration</h3>
-          <p>Make LibreEcho a first-class local voice interface for open home automation through Home Assistant. The Wyoming bridge is currently feature-branch work, not yet the mainline image contract.</p>
+          <p>Make LibreEcho a first-class local voice interface for open home automation through Home Assistant. The Wyoming bridge is currently feature-branch work, not yet part of the Linux 6.1 image contract.</p>
         </article>
       </div>
       <p class="fine-print">Roadmap order is directional, not a promise of delivery dates. Follow the repository for implementation updates.</p>
@@ -198,22 +225,28 @@
     <section id="contribute" class="section-shell contribute-section">
       <div class="contribute-art"><img src="assets/images/open-device.svg" alt="An exploded stylised speaker showing reusable hardware layers"></div>
       <div>
-        <p class="section-label">06 / Contribute</p>
+        <p class="section-label">07 / Get it &amp; contribute</p>
         <h2>Help turn research into a usable system.</h2>
-        <p>Kernel developers, embedded Linux engineers, reverse engineers, designers, testers and technical writers all have something valuable to contribute.</p>
+        <p>Kernel developers, embedded Linux engineers, reverse engineers, designers, testers and technical writers all have something valuable to contribute. And if you simply want a liberated Echo on your network, there is a path in too.</p>
+        <div class="try-card">
+          <p class="support-title">Want LibreEcho on your Echo?</p>
+          <p>The flashing path is currently developer-oriented: unlock, boot the validated baseline, then iterate from the control centre. A first-user install guide is being written against the Linux 6.1 baseline — watch the repository, or tell us you want it and it ships sooner.</p>
+          <a class="text-link" href="https://github.com/" data-issues-link>Request the install guide <span aria-hidden="true">→</span></a>
+        </div>
         <div class="support-card">
           <img src="assets/images/buy-me-a-coffee-qr.png" alt="QR code to support LibreEcho on Buy Me a Coffee" width="180" height="180">
           <div>
-            <p class="support-title">Enjoying the project?</p>
-            <p>Buy the builders a beer and help keep the research moving.</p>
+            <p class="support-title">Keep the lights on.</p>
+            <p>Support funds the device lab, build infrastructure and the kernel time that keep validation moving on real hardware. Every contribution goes directly into LibreEcho's next milestone.</p>
           <a class="text-link coffee-link" href="https://buymeacoffee.com/libreecho" target="_blank" rel="noopener">Support LibreEcho <span aria-hidden="true">🍺</span></a>
           </div>
         </div>
         <div class="contribute-links">
           <a class="button" href="https://github.com/" data-repo-link>Visit the repository</a>
           <a class="text-link" href="https://github.com/" data-issues-link>Browse open issues <span aria-hidden="true">→</span></a>
-          <a class="text-link coffee-link" href="https://buymeacoffee.com/libreecho" target="_blank" rel="noopener">Support the project <span aria-hidden="true">🍺</span></a>
+          <a class="text-link" href="https://buymeacoffee.com/libreecho" target="_blank" rel="noopener">Support the project <span aria-hidden="true">🍺</span></a>
         </div>
+        <p class="fine-print">Community channel: currently in planning — for now the best place to talk is the GitHub repository issues, and watching it gets you notified when a dedicated space opens.</p>
       </div>
     </section>
   </main>
