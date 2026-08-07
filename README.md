@@ -11,7 +11,7 @@ original website source and artwork in this repository.
 
 1. Create an empty GitHub repository.
 2. Extract this archive and copy its contents into the repository root.
-3. The development repository is configured for `aslater3/LibreEcho-Docs-dev`. Update the repository and Pages URLs if you fork this project.
+3. This is the development site and browser demo for the current LibreEcho PRD line.
 4. Commit and push to the `main` branch.
 5. In **Settings → Pages**, select **GitHub Actions** as the source.
 
@@ -62,11 +62,12 @@ Open `http://localhost:8000`.
 ## Project status language
 
 The current product story is deliberately broader than hardware bring-up:
-LibreEcho is now at **beta** status, retaining the Echo Gen 2 hardware while
-adding working Wi-Fi, local voice processing, OpenWakeWord, Local LLM support,
-AirPlay 2, streamed announcements and LED EQ visualisation. The homepage
-separates working capabilities from remaining integration work such as broader
-Home Assistant/Wyoming support.
+LibreEcho is active Linux 6.1 development on MT8163 ARM32. The PRD baseline has
+been built, independently verified, and deployed for real-world validation.
+The duplicated-stereo AirPlay transport is accepted, while post-deployment fixes
+and broader service integration remain active. This is not yet a stable public
+OTA release. Do not publish device identifiers, private run manifests, serials,
+MAC addresses, or local paths here.
 
 The progress cards are intentionally high-level. Update their wording in
 `index.html` as hardware enablement advances.
