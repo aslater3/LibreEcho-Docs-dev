@@ -12,7 +12,7 @@ original website source and artwork in this repository.
 1. Create an empty GitHub repository.
 2. Extract this archive and copy its contents into the repository root.
 3. This is the development site and browser demo for the current LibreEcho PRD line.
-4. Commit and push to the `main` branch.
+4. Commit and push to the `dev` branch.
 5. In **Settings → Pages**, select **GitHub Actions** as the source.
 
 The included workflow publishes the dev site on every push to `dev`. It also

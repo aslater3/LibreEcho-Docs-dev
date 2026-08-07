@@ -83,30 +83,30 @@
           <p class="section-label">02 / Progress</p>
           <h2>From black box to open platform.</h2>
         </div>
-        <p>Core connectivity and voice capabilities are working in beta. LibreEcho is now adding capabilities that go beyond the stock Echo experience: local voice processing, Local LLM support, AirPlay 2 audio, streamed announcements and LED EQ visualisation.</p>
+        <p>The Linux 6.1 PRD baseline is bootable and independently verified. Real-world hardware, service, and release validation continues; the site separates validated paths from integration work still in progress.</p>
       </div>
       <div class="progress-grid">
         <article class="progress-card complete">
           <div class="card-icon"><img src="assets/images/icon-boot.svg" alt=""></div>
-          <p class="state">Working</p>
+          <p class="state">Validated baseline</p>
           <h3>Boot and recovery</h3>
-          <p>Custom kernels can boot with development access and a repeatable recovery route.</p>
+          <p>The Linux 6.1 development line has a repeatable boot, recovery, and rollback path.</p>
         </article>
         <article class="progress-card complete">
           <div class="card-icon"><img src="assets/images/icon-bluetooth.svg" alt=""></div>
-          <p class="state">Working</p>
+          <p class="state">Validated path</p>
           <h3>Bluetooth transport</h3>
-          <p>The MediaTek connectivity path now completes Bluetooth function initialisation reliably.</p>
+          <p>The MediaTek connectivity path is retained in the validated development service graph; broader integration remains under test.</p>
         </article>
         <article class="progress-card complete">
           <div class="card-icon"><img src="assets/images/icon-wifi.svg" alt=""></div>
-          <p class="state">Working</p>
+          <p class="state">Validation ongoing</p>
           <h3>Wi-Fi connectivity</h3>
-          <p>Wireless networking, firmware loading and the WMT integration path are working parts of the current platform.</p>
+          <p>Firmware loading and the bounded WMT development choreography are validated; association and service hardening remain active work.</p>
         </article>
         <article class="progress-card complete">
           <div class="card-icon"><img src="assets/images/icon-audio.svg" alt=""></div>
-          <p class="state">Working</p>
+          <p class="state">Hardware validated</p>
           <h3>Audio, LED and announcements</h3>
           <p>Linux 6.1 AirPlay playback uses the accepted duplicated-mono stereo PCM transport; announcement and LED service integration remains under active validation.</p>
         </article>
@@ -138,11 +138,11 @@
         <div class="architecture-grid">
           <div>
             <h2>A complete local-first stack.</h2>
-        <p class="body-copy">The stock Echo is the starting point, not the ceiling. LibreEcho keeps the useful hardware while adding local intelligence and open integrations: microphone input, OpenWakeWord, Local LLM support, AirPlay 2 playback, streamed announcements and LED EQ visualisation. Home Assistant/Wyoming integration remains the next broader ecosystem step.</p>
+        <p class="body-copy">The stock Echo is the starting point, not the ceiling. LibreEcho keeps the useful hardware while building local intelligence and open integrations. Linux 6.1 audio playback is hardware-validated; microphone, wake-word, assistant, and Home Assistant/Wyoming paths remain explicit integration targets rather than stable release claims.</p>
           </div>
           <div class="stack" role="img" aria-label="LibreEcho software stack: applications, local voice services, system daemons, Linux kernel and Echo Gen 2 hardware">
             <div><span>Applications</span><small>Home automation · media · utilities</small></div>
-            <div><span>Local intelligence</span><small>OpenWakeWord · Local LLM · speech · intent routing</small></div>
+            <div><span>Local intelligence</span><small>Wake word · speech · intent routing · integration targets</small></div>
             <div><span>Media and expression</span><small>AirPlay 2 · announcements · LED EQ visualisation</small></div>
             <div><span>System services</span><small>Audio · LEDs · Bluetooth · Wi-Fi</small></div>
             <div><span>Linux kernel</span><small>MT8163 · device tree · drivers</small></div>
@@ -158,32 +158,32 @@
         <p class="section-label">05 / Roadmap</p>
           <h2>Make the Echo useful again.</h2>
         </div>
-        <p>These are the ambitions guiding LibreEcho from hardware bring-up to a genuinely useful, local-first assistant.</p>
+        <p>These are the ambitions guiding LibreEcho from the current PRD development baseline to a stable, useful local-first assistant.</p>
       </div>
       <div class="roadmap-grid">
         <article class="roadmap-card complete">
           <span class="roadmap-number">01</span>
-          <p class="state">Working</p>
-          <h3>Wi-Fi</h3>
-          <p>Reliable wireless networking is working on the open platform, providing the foundation for local services, updates and external control.</p>
+          <p class="state">Hardening</p>
+          <h3>Wi-Fi integration</h3>
+          <p>The bounded MT8163 wireless choreography is validated; association, recovery, and service integration still need continued hardening.</p>
         </article>
         <article class="roadmap-card complete">
           <span class="roadmap-number">02</span>
-          <p class="state">Working</p>
+          <p class="state">Validated baseline</p>
           <h3>Audio output</h3>
-          <p>Speaker playback, AirPlay audio and local announcements now have a shared packaged path, with volume handling under active refinement.</p>
+          <p>Real AirPlay playback is hardware-validated with duplicated mono carried in two-channel stereo PCM; release integration and volume behavior remain under refinement.</p>
         </article>
         <article class="roadmap-card complete">
           <span class="roadmap-number">03</span>
-          <p class="state">Working</p>
+          <p class="state">Integration ongoing</p>
           <h3>Microphone and open voice</h3>
-          <p>The microphone array, OpenWakeWord detection and local voice pipeline are working foundations for private, extensible voice interactions.</p>
+          <p>Microphone, wake-word, STT, TTS, and assistant components exist in the development stack; end-to-end readiness is still being validated.</p>
         </article>
         <article class="roadmap-card complete">
           <span class="roadmap-number">04</span>
-          <p class="state">Working</p>
+          <p class="state">Integration ongoing</p>
           <h3>Open wake word</h3>
-          <p>OpenWakeWord is working as part of the local voice pipeline, keeping wake detection configurable and independent of the stock cloud experience.</p>
+          <p>Wake-word integration is being exercised as part of the local voice pipeline, keeping detection configurable and independent of the stock cloud experience.</p>
         </article>
         <article class="roadmap-card">
           <span class="roadmap-number">05</span>
