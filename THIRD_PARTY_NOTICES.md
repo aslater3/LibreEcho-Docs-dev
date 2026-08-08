@@ -39,7 +39,7 @@ and incorporated support code.
 The LibreEcho kernel work is based on Linux and remains subject to the Linux
 kernel's GPL-2.0-or-later licensing and the individual copyright, author, and
 license notices present in the kernel source tree. See
-[LibreEcho-Kernel](https://github.com/aslater3/LibreEcho-Kernel).
+[LibreEcho-Platform](https://github.com/aslater3/LibreEcho-Platform).
 
 Some low-level support components retain separate notices, including code
 copyrighted by Jörg Mische and components distributed under GPL and BSD-style
