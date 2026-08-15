@@ -1,4 +1,4 @@
-.demo-banner{display:flex;align-items:center;justify-content:center;gap:1rem;padding:.65rem 1rem;background:linear-gradient(90deg,#48d876,#57b9ff);color:#06120c;font-size:.84rem}
+.demo-banner{display:flex;align-items:center;justify-content:center;gap:1rem;padding:.65rem 1rem;background:linear-gradient(90deg,#55d47a,#5ba8ff);color:#06120c;font-size:.84rem}
 .demo-banner button,.demo-banner a{border:1px solid rgba(0,0,0,.35);border-radius:999px;background:rgba(255,255,255,.45);color:#06120c;padding:.38rem .7rem;font:inherit;font-weight:750;text-decoration:none;cursor:pointer}
 .demo-banner button:hover,.demo-banner a:hover{background:#fff}
 body.light .demo-banner{color:#07140d}
