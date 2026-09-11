@@ -1,6 +1,8 @@
 name: Deploy dev site to GitHub Pages
 
 on:
+  pull_request:
+    branches: [dev]
   push:
     branches: [dev]
   schedule:
@@ -13,7 +15,7 @@ permissions:
   id-token: write
 
 concurrency:
-  group: pages
+  group: pages-${{ github.event_name == 'pull_request' && github.event.pull_request.number || 'publish' }}
   cancel-in-progress: true
 
 jobs:
@@ -21,24 +23,28 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
       - name: Configure Pages
-        uses: actions/configure-pages@v5
+        uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
       - name: Check out latest UI source
         id: ui_checkout
         continue-on-error: true
-        uses: actions/checkout@v4
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           repository: aslater3/LibreEcho-UI
           ref: main
           path: ui-source
           token: ${{ secrets.UI_REPOSITORY_TOKEN || github.token }}
+          persist-credentials: false
       - name: Build UI demo source
         if: steps.ui_checkout.outcome == 'success'
         run: make -C ui-source -j2
       - name: Start UI demo source
         if: steps.ui_checkout.outcome == 'success'
         run: |
+          touch "$RUNNER_TEMP/libreecho-demo-config.json.setup-complete"
           ./ui-source/build/libreecho-web --backend mock --web-root ./ui-source/web \
             --listen 127.0.0.1:18080 --mock-config ./ui-source/config/mock-state.json \
             --config "$RUNNER_TEMP/libreecho-demo-config.json" --seed 42 --dev-controls \
@@ -49,17 +55,19 @@ jobs:
         if: steps.ui_checkout.outcome == 'success'
         run: |
           mkdir -p "$RUNNER_TEMP/ui-capture"
-          npm --prefix "$RUNNER_TEMP/ui-capture" install --no-save playwright@1.52.0
+          npm --prefix "$RUNNER_TEMP/ui-capture" install --no-save playwright@1.63.0
           npx --prefix "$RUNNER_TEMP/ui-capture" playwright install --with-deps chromium
           cat >"$RUNNER_TEMP/ui-capture/capture.mjs" <<'EOF'
           import { chromium } from 'playwright';
           const output = process.env.GITHUB_WORKSPACE;
-          const browser = await chromium.launch({headless: true});
+          const browser = await chromium.launch({headless: true, args: ['--disable-dev-shm-usage', '--no-sandbox']});
           const page = await browser.newPage({viewport: {width: 1440, height: 914}, deviceScaleFactor: 1});
-          await page.goto('http://127.0.0.1:18080/#overview', {waitUntil: 'networkidle'});
+          page.setDefaultTimeout(90000);
+          page.setDefaultNavigationTimeout(90000);
+          await page.goto('http://127.0.0.1:18080/#overview', {waitUntil: 'load'});
           await page.waitForTimeout(2500);
           await page.screenshot({path: output + '/demo/assets/current-dashboard.png'});
-          await page.goto('http://127.0.0.1:18080/#system', {waitUntil: 'networkidle'});
+          await page.goto('http://127.0.0.1:18080/#system', {waitUntil: 'load'});
           await page.waitForTimeout(1500);
           await page.screenshot({path: output + '/demo/assets/current-system.png'});
           await browser.close();
@@ -73,11 +81,12 @@ jobs:
           mkdir -p "$RUNNER_TEMP/site"
           rsync -a --exclude='.git' --exclude='ui-source' ./ "$RUNNER_TEMP/site/"
       - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
         with:
           path: ${{ runner.temp }}/site
 
   deploy:
+    if: github.event_name != 'pull_request'
     needs: build
     runs-on: ubuntu-latest
     environment:
@@ -86,4 +95,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1
