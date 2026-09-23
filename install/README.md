@@ -4,10 +4,10 @@ The browser one-shot installer for LibreEcho: it verifies a published release,
 takes USB access through the browser's own WebUSB permission prompt, and drives
 the install stages with a terminal-style progress monitor.
 
-Published from this repository at `/install/` for now (`https://dev.libreecho.org/install/`).
-It is written to be origin-independent — every asset path is relative — so the
-same directory can be served from its own hostname (`install.dev.libreecho.org`)
-without changes.
+Published from this repository at `/install/` (`https://dev.libreecho.org/install/`)
+and from its own publication repository at `install.dev.libreecho.org`. The app is
+origin-independent — every asset path is relative — so the same directory is
+served by both without changes.
 
 ## Layout
 
