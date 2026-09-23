@@ -1,0 +1,27 @@
+/* LibreEcho development-site extras.
+   Loaded after the production stylesheets. Contains only classes the
+   development site adds: the development-site banner, the browser-demo button
+   treatment, the proof-of-life placeholders and the contribute try-card. */
+
+.dev-banner{display:flex;align-items:center;gap:1rem;flex-wrap:wrap;padding:.65rem 1.25rem;background:linear-gradient(90deg,rgba(91,168,255,.16),rgba(85,212,122,.14));border-bottom:1px solid var(--line);font-size:.85rem;color:var(--text)}
+.dev-banner-tag{font-weight:850;letter-spacing:.11em;text-transform:uppercase;font-size:.7rem;color:var(--green)}
+.dev-banner a{color:var(--text)}
+.dev-banner-link{margin-left:auto;font-weight:800;text-decoration:none;white-space:nowrap;border-bottom:1px dotted rgba(123,232,255,.7)}
+.dev-banner-link:hover{color:var(--green);border-color:var(--green)}
+@media(max-width:900px){.dev-banner-link{margin-left:0}}
+
+/* GitHub Pages control-centre demo button */
+.demo-button{background:linear-gradient(90deg,var(--green),var(--cyan));box-shadow:0 0 28px rgba(121,242,192,.18)}
+
+/* In action (proof of life) */
+.proof-section{padding-block:8rem}
+.proof-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:2rem;margin-top:3.5rem}
+.proof-placeholder{margin:0}
+.proof-slot{border:1px dashed var(--line);border-radius:var(--radius);background:linear-gradient(160deg,var(--panel),var(--panel2));min-height:320px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.6rem;text-align:center;padding:2rem;color:var(--text);font-weight:650}
+.proof-slot small{color:var(--muted);font-weight:400;max-width:34ch}
+.proof-section .fine-print{margin-top:2rem}
+
+/* Try-card in the contribute section */
+.try-card{border:1px solid var(--line);border-radius:var(--radius);background:var(--panel);padding:1.5rem 1.75rem;margin-bottom:1.5rem}
+.try-card .support-title{margin-top:0}
+@media (max-width:900px){.proof-grid{grid-template-columns:1fr}.proof-slot{min-height:220px}}

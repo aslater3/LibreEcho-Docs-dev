@@ -21,6 +21,31 @@ current Control Centre captures. Add the fine-grained `UI_REPOSITORY_TOKEN`
 Actions secret with read-only Contents access to the private UI repository to
 enable source checkout; otherwise the last committed captures remain in place.
 
+## Content parity with the public site
+
+`index.html` carries the full content of the public site
+([`LibreEcho-Docs`](https://github.com/aslater3/LibreEcho-Docs) → `libreecho.org`)
+plus the sections that only exist here: the development-site banner, the
+in-flight "In action" proof-of-life placeholders, the current UI captures, the
+architecture stack and the capability roadmap. Section numbering runs straight
+through both sets.
+
+The production stylesheets and `assets/js/site.js` are copied from the public
+site so the two pages render identically; development-only classes live in
+`assets/css/dev-extras.css`. When the public site changes, re-sync by taking
+those files again and re-checking that every production section is still present
+here.
+
+## Browser installer preview
+
+`install/` is the browser one-shot installer: it verifies a published release,
+takes USB access through WebUSB, and runs the install stages with a terminal
+progress monitor. See [`install/README.md`](install/README.md) for the design
+constraints and [`install/NOTES.html`](install/NOTES.html) for the operator
+notes. It is published here as a preview; the intended home is its own hostname
+(`install.dev.libreecho.org`), and every path inside it is relative so it can
+move without changes.
+
 ## Browser demo
 
 The dependency-free control-centre demonstration is served from `demo/`. It uses

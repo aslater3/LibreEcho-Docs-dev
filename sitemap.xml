@@ -1,2 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url><loc>https://aslater3.github.io/LibreEcho-Docs-dev/</loc></url></urlset>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://dev.libreecho.org/</loc></url>
+  <url><loc>https://dev.libreecho.org/credits.html</loc></url>
+  <url><loc>https://dev.libreecho.org/demo/</loc></url>
+  <url><loc>https://dev.libreecho.org/demo/api.html</loc></url>
+  <url><loc>https://dev.libreecho.org/install/</loc></url>
+  <url><loc>https://dev.libreecho.org/install/NOTES.html</loc></url>
+</urlset>
