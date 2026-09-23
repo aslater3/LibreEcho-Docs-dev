@@ -44,6 +44,7 @@ const dom = {
     dryRun: document.getElementById("btn-dry-run"),
     run: document.getElementById("btn-run"),
     abort: document.getElementById("btn-abort"),
+    recovery: document.getElementById("btn-recovery"),
   },
 };
 
@@ -290,6 +291,32 @@ function renderDevicePanel(identity, assessment) {
   }
 }
 
+async function findRecovery() {
+  currentStage("recovery");
+  // Re-attach silently when permission already exists; only prompt when the
+  // origin has never been granted access to an ADB device.
+  let session = null;
+  try {
+    const { reattachAdb } = await import("./transports.js");
+    session = await reattachAdb({ timeoutMs: 6000, onLog: (line) => terminal.line(line) });
+  } catch {
+    session = null;
+  }
+  if (!session) {
+    terminal.info("no ADB device is authorised for this origin yet: asking the browser for access");
+    session = await waitForRecovery({ timeoutMs: 30000, terminal });
+  }
+  state.adb = session.client;
+  const probe = await session.client.shell("getprop ro.twrp.version; cat /proc/mounts | grep -c cache");
+  terminal.ok(`recovery session ready (${String(probe.stdout ?? "").trim().replace(/\s+/g, " ")})`);
+  const receipt = await session.client.shell("cat /cache/libreecho-install-receipt 2>/dev/null || true");
+  if (String(receipt.stdout ?? "").trim()) {
+    terminal.info("an existing install receipt is present on the device:");
+    for (const line of String(receipt.stdout).trim().split(/\r?\n/)) terminal.line(line);
+  }
+  return session;
+}
+
 // --- unlock payload --------------------------------------------------------
 
 async function loadPayload(file) {
@@ -465,6 +492,9 @@ dom.payloadInput?.addEventListener("change", (event) => {
 });
 dom.buttons.connect?.addEventListener("click", () => {
   connectFastboot().catch((error) => terminal.error(`device connection failed: ${error.message}`));
+});
+dom.buttons.recovery?.addEventListener("click", () => {
+  findRecovery().catch((error) => terminal.error(`recovery connection failed: ${error.message}`));
 });
 dom.buttons.dryRun?.addEventListener("click", () => runInstall({ dryRun: true }));
 dom.buttons.run?.addEventListener("click", () => runInstall({ dryRun: false }));

@@ -183,9 +183,10 @@ export async function submitUnlockPayload({ client, profile, lkBuild, payloadByt
   }
   terminal?.command(`fastboot flash brick <${selection.payload}>`);
   try {
+    // onProgress from the fastboot client is (sent, total).
     await client.flash("brick", payloadBytes, {
-      onProgress: (fraction) => terminal?.progress("submitting unlock payload", fraction),
-      timeoutMs,
+      onProgress: (sent, total) => terminal?.progress("submitting unlock payload", sent / total, `${sent} / ${total} bytes`),
+      onInfo: (line) => terminal?.line(line),
     });
     terminal?.endProgress();
     terminal?.ok("the bootloader accepted the payload command");
@@ -207,28 +208,42 @@ export async function submitUnlockPayload({ client, profile, lkBuild, payloadByt
 // Stage 5 — recovery
 // ---------------------------------------------------------------------------
 
-export async function waitForRecovery({ timeoutMs = 180000, intervalMs = 5000, terminal, adbDevice = null }) {
+/**
+ * Waits for TWRP to appear over ADB. The browser keeps the USB permission it
+ * was granted, so re-attachment after a USB mode change needs no new prompt;
+ * the device chooser is only used when nothing has been granted yet.
+ */
+export async function waitForRecovery({ timeoutMs = 180000, intervalMs = 4000, terminal, adbDevice = null } = {}) {
+  const { reattachAdb } = await import("./transports.js");
   const deadline = Date.now() + timeoutMs;
   let attempt = 0;
   while (Date.now() < deadline) {
     attempt += 1;
     try {
-      const session = await openAdb({ device: adbDevice, onLog: (line) => terminal?.line(line) });
-      const probe = await session.client.shell("getprop ro.twrp.version 2>/dev/null; getprop ro.product.device 2>/dev/null");
-      const out = `${probe.stdout ?? ""}`.trim();
-      const isTwrp = /twrp/i.test(out) || Number(probe.exitCode ?? 0) === 0;
-      terminal?.line(`adb probe ${attempt}: ${out.replace(/\s+/g, " ") || "(no output)"}`);
-      if (isTwrp) {
-        terminal?.ok("recovery is reachable over ADB");
+      const session = adbDevice
+        ? await openAdb({ device: adbDevice, onLog: (line) => terminal?.line(line) })
+        : await reattachAdb({ timeoutMs: Math.min(intervalMs * 3, 12000), onLog: null });
+      const probe = await session.client.shell("getprop ro.twrp.version; getprop ro.product.device");
+      const lines = String(probe.stdout ?? "")
+        .split(/\r?\n/)
+        .map((line) => line.trim())
+        .filter(Boolean);
+      const [twrpVersion = "", device = ""] = lines;
+      terminal?.line(`adb probe ${attempt}: twrp=${twrpVersion || "(none)"} device=${device || "(none)"}`);
+      if (/^\d/.test(twrpVersion)) {
+        terminal?.ok(`TWRP ${twrpVersion} is reachable over ADB${device ? ` (${device})` : ""}`);
         return session;
       }
+      terminal?.warn("ADB answered but this is not TWRP; waiting for recovery to come back");
       await session.client.close();
     } catch (error) {
-      if (attempt === 1 || attempt % 4 === 0) {
-        terminal?.line(`waiting for recovery over ADB (${Math.round((deadline - Date.now()) / 1000)}s left): ${error.message}`);
+      if (attempt === 1 || attempt % 5 === 0) {
+        terminal?.line(
+          `waiting for recovery over ADB (${Math.round((deadline - Date.now()) / 1000)}s left): ${error.message}`,
+        );
       }
     }
-    await sleep(intervalMs);
+    await new Promise((resolve) => setTimeout(resolve, intervalMs));
   }
   throw new StageError("recovery", "timed out waiting for TWRP over ADB");
 }
@@ -250,10 +265,16 @@ export async function pushBundle({ adb, files, sums, terminal, onProgress }) {
     const remote = `${BUNDLE_DIR}/${name}`;
     terminal?.command(`adb push ${name} → ${remote} (${(file.size / 1048576).toFixed(1)} MiB)`);
     await adb.push(remote, file, {
-      onProgress: (fraction) => {
-        const overall = (pushed + fraction * file.size) / totalBytes;
-        terminal?.progress(`pushing ${name}`, overall, `${(overall * totalBytes / 1048576).toFixed(0)} / ${(totalBytes / 1048576).toFixed(0)} MiB`);
+      // onProgress from the ADB client is ({ sent, total }).
+      onProgress: ({ sent, total }) => {
+        const overall = (pushed + sent) / totalBytes;
+        terminal?.progress(
+          `pushing ${name}`,
+          overall,
+          `${(overall * totalBytes / 1048576).toFixed(0)} / ${(totalBytes / 1048576).toFixed(0)} MiB`,
+        );
         if (onProgress) onProgress(overall);
+        void total;
       },
     });
     pushed += file.size;

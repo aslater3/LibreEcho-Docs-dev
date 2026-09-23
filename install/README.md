@@ -24,8 +24,8 @@ without changes.
 | `js/profiles.js` | Declared device profiles and payload map |
 | `js/sha256.js` | Incremental SHA-256 (used to hash large payloads without buffering them) |
 | `js/terminal.js` | Terminal renderer with in-place progress rows |
-| `lib/fastboot.js`, `lib/webusb-fastboot-transport.js` | Fastboot protocol + WebUSB transport |
-| `lib/adb.js`, `lib/webusb-adb-transport.js` | ADB protocol (shell, sync push) + WebUSB transport |
+| `lib/fastboot/` | Fastboot protocol + WebUSB transport + unit tests + README |
+| `lib/adb/` | ADB protocol (shell, sync push) + WebUSB transport + unit tests + README |
 
 ## Design constraints
 
@@ -70,10 +70,17 @@ itself cannot be exercised without the hardware attached.
 
 ## Verification status
 
-* Protocol layers: unit-tested in Node against scripted fastboot and adbd peers
-  (`node --test lib/test_fastboot.mjs`, `node --test lib/test_adb.mjs`).
-* SHA-256: verified against Node's `crypto` over empty, boundary-length and
-  randomised inputs.
-* Stage orchestration and UI: exercised in a Chromium browser.
+* Protocol layers: unit-tested in Node against scripted fastboot and adbd peers.
+  `cd install/lib/fastboot && node --test test_fastboot.mjs` → 52 tests, 52 pass.
+  `cd install/lib/adb && node --test test_adb.mjs` → 22 tests, 21 pass, 1 skipped
+  (the multi-hundred-megabyte streaming push is opt-in via `ADB_BIG_MB`).
+* SHA-256: verified against Node's `crypto` over empty, boundary-length
+  (55/56/57/63/64/65), randomised and Blob-chunked inputs (15 cases).
+* Site checks: link audit across every HTML page, content-parity check against
+  the production page, privacy/stale-hostname scan, JSON parse and module parse
+  for every JS file.
+* Stage orchestration and UI: exercised in a Chromium browser (release index,
+  capability probe, stage list, terminal output); device stages stop at the
+  USB permission prompt as designed.
 * Hardware: **not yet run from a browser.** Treat every install claim on this
   page as unvalidated until that happens.
