@@ -72,8 +72,9 @@ itself cannot be exercised without the hardware attached.
 
 * Protocol layers: unit-tested in Node against scripted fastboot and adbd peers.
   `cd install/lib/fastboot && node --test test_fastboot.mjs` → 52 tests, 52 pass.
-  `cd install/lib/adb && node --test test_adb.mjs` → 22 tests, 21 pass, 1 skipped
-  (the multi-hundred-megabyte streaming push is opt-in via `ADB_BIG_MB`).
+  `cd install/lib/adb && node --test test_adb.mjs` → 22 tests, 22 pass with
+  `ADB_BIG_MB=256` set (the multi-hundred-megabyte streaming push is opt-in;
+  without it: 21 pass, 1 skipped).
 * SHA-256: verified against Node's `crypto` over empty, boundary-length
   (55/56/57/63/64/65), randomised and Blob-chunked inputs (15 cases).
 * Site checks: link audit across every HTML page, content-parity check against
