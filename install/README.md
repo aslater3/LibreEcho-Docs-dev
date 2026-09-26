@@ -45,8 +45,10 @@ served by both without changes.
   ZIP attempt for the same device/release/phase. Only an operator who has
   classified the resulting hardware and receipt may plan a new transaction.
 * **Marker safety is a release gate.** A verified bundle alone cannot qualify
-  a boot image. No available Biscuit image has positive marker-safe hardware
-  qualification, so Run remains disabled. Development images and fastboot
+  a boot image. Radar images can run experimentally on the Dot because the
+  core hardware is shared; that is not a qualified, supported one-shot install.
+  No available Biscuit image has positive marker-safe hardware qualification,
+  so Run remains disabled. Development images and fastboot
   reboot-request paths can write `FASTBOOT_PLEASE` over Kaeru in `expdb`.
   TWRP staging/install additionally requires a matching serial and an intact
   Kaeru header before and after each recovery phase. The fastbrick unlock
