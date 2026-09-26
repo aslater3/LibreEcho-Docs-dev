@@ -88,6 +88,11 @@ itself cannot be exercised without the hardware attached.
   header rejection. A passing fake transport does not prove the whole-image
   WebUSB fastbrick transfer or recovery protocol on actual hardware.
 * Site checks: parse every JS module, check links and run `git diff --check`.
-* Hardware: **not yet run from a browser.** The Run button remains disabled
-  until the exact board image has positive marker-safe qualification, then a
-  separate operator-authorised live phase can test WebUSB and actual reboots.
+* Hardware: the **read-only Query Device** path was exercised on an Echo Dot 2
+  in local Chrome on 2026-09-26. WebUSB returned the fastboot product, lock
+  state, LK/preloader builds, security/RPMB fields, download limit and full
+  serial in the local panel; the log masked the serial. A post-query host
+  read still showed the unit locked. This did not exercise raw fastbrick,
+  recovery ADB, the ZIP, a reboot, or any device write. **Run remains disabled**
+  until the exact board image has positive marker-safe qualification and a
+  separately authorised live phase can test those paths.
