@@ -31,16 +31,31 @@ served by both without changes.
 
 * **No build step, no dependencies.** Native ES modules loaded directly by the
   browser, so the site stays a static Pages deployment.
-* **Hash before use.** Payloads are verified against the release's own
-  `SHA256SUMS` in the browser; pushed files are re-hashed on the device with its
-  own `sha256sum`.
-* **No silent guesses.** Device compatibility comes from `fastboot getvar`, not
-  from a product name in a URL. The unlock payload is selected by the device's
-  LK build description and must be operator-supplied.
-* **Never retry an unknown outcome.** A `flash brick` timeout stops the run.
-* **Writes stay inside the reviewed allowlist.** `boot_a`, `boot_b` and
-  `userdata` (via the recovery installer). Everything else is out of reach by
-  construction.
+* **Hash before any device use.** Both normal and TWRP checksum inventories
+  must match their GitHub release API asset digests; every required file,
+  including `libreecho-install.zip` and `bundle.manifest`, must then match the
+  correct inventory and API digest. Files are re-hashed on the device after push.
+* **No silent guesses.** Product, LK build, lock state and full serial are read
+  from fastboot; the serial is masked in UI/logs but used to bind TWRP. The
+  build-selected, operator-supplied unlock image must match a pinned size and
+  SHA-256 before `flash:brick`.
+* **No retry after uncertain submission.** A hashed per-device/payload unlock
+  attempt is persisted across tabs before USB transmission; a timeout or
+  disconnect is unknown. A separate persisted record blocks a second recovery
+  ZIP attempt for the same device/release/phase. Only an operator who has
+  classified the resulting hardware and receipt may plan a new transaction.
+* **Marker safety is a release gate.** A verified bundle alone cannot qualify
+  a boot image. Radar images can run experimentally on the Dot because the
+  core hardware is shared; that is not a qualified, supported one-shot install.
+  No available Biscuit image has positive marker-safe hardware qualification,
+  so Run remains disabled. Development images and fastboot
+  reboot-request paths can write `FASTBOOT_PLEASE` over Kaeru in `expdb`.
+  TWRP staging/install additionally requires a matching serial and an intact
+  Kaeru header before and after each recovery phase. The fastbrick unlock
+  payload itself writes critical boot-chain partitions; its write set is NOT
+  limited to boot slots and userdata.
+* **Rehearse is truly no-write.** It may review selected release/identity state
+  but never submits a fastboot image, pushes files or invokes TWRP.
 
 ## Why payloads are operator-supplied
 
@@ -48,15 +63,31 @@ A page cannot read `github.com/.../releases/download/...`: the redirect response
 has no `Access-Control-Allow-Origin`, so `fetch()` fails before the body is
 readable (verified from `https://dev.libreecho.org`). Metadata
 (`api.github.com`) and raw repository files are readable. The installer therefore
-takes the release bundle from a local file/folder selection by default, and can
-use a CORS-enabled mirror when one is configured:
+takes the release bundle from a local file/folder selection. An optional
+CORS-enabled mirror may serve checksum listings; it does not replace the local
+bundle selection, API digest checks or board/marker qualification. Configure it
+with `window.LIBREECHO_INSTALLER_CONFIG.mirrorBase` or the `?mirror=` query
+parameter.
 
-```html
-<script>window.LIBREECHO_INSTALLER_CONFIG = { mirrorBase: "https://mirror.example/libreecho" };</script>
-```
+## Amonet unlock archive acquisition
 
-or `?mirror=https://mirror.example/libreecho`. A mirror is served as
-`<mirrorBase>/<release-tag>/<asset-name>`.
+The community Biscuit v2 archive is distributed as an XDA attachment, not a
+GitHub release asset. A direct anonymous host HEAD request returned 403 with no
+CORS header, so this page does **not** promise a direct XDA browser download or
+embed the binary. After the read-only device query, select the pinned
+`amonet-biscuit-v2.0.0.zip` once: the page verifies the whole archive SHA-256,
+extracts only `amonet/bin/fastbrick-20221007.img` for the reported LK build,
+and separately verifies that member's size and SHA-256. The raw image picker
+remains an advanced pinned fallback.
+
+An operator may configure a CORS-enabled HTTPS mirror with
+`window.LIBREECHO_INSTALLER_CONFIG.amonetMirrorBase` or `?amonetMirror=`. Then
+**Fetch pinned ZIP from configured mirror** automatically downloads the declared
+archive filename and applies the same two hashes. Loopback HTTP is permitted for
+local tests only. No mirror is configured by default; do not substitute an
+unverified third-party mirror or strip the digest check after a failed fetch.
+A verified payload is **not** permission to unlock: the marker-safe release and
+separate hardware authorization gates still apply.
 
 ## Local preview
 
@@ -70,18 +101,20 @@ itself cannot be exercised without the hardware attached.
 
 ## Verification status
 
-* Protocol layers: unit-tested in Node against scripted fastboot and adbd peers.
-  `cd install/lib/fastboot && node --test test_fastboot.mjs` → 52 tests, 52 pass.
-  `cd install/lib/adb && node --test test_adb.mjs` → 22 tests, 22 pass with
-  `ADB_BIG_MB=256` set (the multi-hundred-megabyte streaming push is opt-in;
-  without it: 21 pass, 1 skipped).
-* SHA-256: verified against Node's `crypto` over empty, boundary-length
-  (55/56/57/63/64/65), randomised and Blob-chunked inputs (15 cases).
-* Site checks: link audit across every HTML page, content-parity check against
-  the production page, privacy/stale-hostname scan, JSON parse and module parse
-  for every JS file.
-* Stage orchestration and UI: exercised in a Chromium browser (release index,
-  capability probe, stage list, terminal output); device stages stop at the
-  USB permission prompt as designed.
-* Hardware: **not yet run from a browser.** Treat every install claim on this
-  page as unvalidated until that happens.
+* Protocol layers: run `node --test install/lib/fastboot/test_fastboot.mjs
+  install/lib/adb/test_adb.mjs` from the repository root. These are scripted
+  peers, not a real LK/adbd acceptance test; the large push case is optional.
+* Browser state machine and safety gates: run `node --test install/js/test_*.mjs`.
+  These device-free cases cover no-write rehearsal, wrong-board refusal,
+  release/API digests, single-submission state, serial continuity and Kaeru
+  header rejection. A passing fake transport does not prove the whole-image
+  WebUSB fastbrick transfer or recovery protocol on actual hardware.
+* Site checks: parse every JS module, check links and run `git diff --check`.
+* Hardware: the **read-only Query Device** path was exercised on an Echo Dot 2
+  in local Chrome on 2026-09-26. WebUSB returned the fastboot product, lock
+  state, LK/preloader builds, security/RPMB fields, download limit and full
+  serial in the local panel; the log masked the serial. A post-query host
+  read still showed the unit locked. This did not exercise raw fastbrick,
+  recovery ADB, the ZIP, a reboot, or any device write. **Run remains disabled**
+  until the exact board image has positive marker-safe qualification and a
+  separately authorised live phase can test those paths.
