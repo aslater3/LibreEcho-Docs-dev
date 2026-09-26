@@ -69,6 +69,26 @@ bundle selection, API digest checks or board/marker qualification. Configure it
 with `window.LIBREECHO_INSTALLER_CONFIG.mirrorBase` or the `?mirror=` query
 parameter.
 
+## Amonet unlock archive acquisition
+
+The community Biscuit v2 archive is distributed as an XDA attachment, not a
+GitHub release asset. A direct anonymous host HEAD request returned 403 with no
+CORS header, so this page does **not** promise a direct XDA browser download or
+embed the binary. After the read-only device query, select the pinned
+`amonet-biscuit-v2.0.0.zip` once: the page verifies the whole archive SHA-256,
+extracts only `amonet/bin/fastbrick-20221007.img` for the reported LK build,
+and separately verifies that member's size and SHA-256. The raw image picker
+remains an advanced pinned fallback.
+
+An operator may configure a CORS-enabled HTTPS mirror with
+`window.LIBREECHO_INSTALLER_CONFIG.amonetMirrorBase` or `?amonetMirror=`. Then
+**Fetch pinned ZIP from configured mirror** automatically downloads the declared
+archive filename and applies the same two hashes. Loopback HTTP is permitted for
+local tests only. No mirror is configured by default; do not substitute an
+unverified third-party mirror or strip the digest check after a failed fetch.
+A verified payload is **not** permission to unlock: the marker-safe release and
+separate hardware authorization gates still apply.
+
 ## Local preview
 
 ```bash
