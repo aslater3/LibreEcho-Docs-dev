@@ -56,7 +56,7 @@
     <p>Two honest consequences:</p>
     <ul>
       <li><strong>Default:</strong> download the release assets with your browser from the release page, then select them (or the whole folder) in the installer. Verification against the release's own <code>SHA256SUMS</code> still happens in the browser, so the integrity gate is unchanged.</li>
-      <li><strong>Optional:</strong> if you run a CORS-enabled mirror of the release assets (for example a small worker in front of the release URLs), point the installer at it with <code>?mirror=https://…</code> or a <code>window.LIBREECHO_INSTALLER_CONFIG = { mirrorBase: "…" }</code> script tag, and the payloads are fetched in-page with progress. Nothing in the installer requires this.</li>
+      <li><strong>Release download mirror:</strong> by default the installer reads release files from <code>https://dl.libreecho.org</code>, a read-only CORS pass-through to the GitHub release download URLs. It is untrusted transport: every file is still checked against the release's <code>SHA256SUMS</code>. <code>?mirror=https://…</code> points at a different mirror and <code>?mirror=</code> (empty) turns it off. The maintained installer, with automatic download of the whole bundle, is published at <a href="https://install.dev.libreecho.org/">install.dev.libreecho.org</a>.</li>
     </ul>
 
     <h2>Browser requirements</h2>
