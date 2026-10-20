@@ -48,7 +48,10 @@ jobs:
       - name: Start UI demo source
         if: steps.ui_checkout.outcome == 'success'
         run: |
-          touch "$RUNNER_TEMP/libreecho-demo-config.json.setup-complete"
+          # The web server accepts the setup-complete marker only when it says
+          # schema=1; an empty marker leaves the demo in setup, where it loops
+          # between the setup and sign-in pages and never renders.
+          printf 'schema=1\n' >"$RUNNER_TEMP/libreecho-demo-config.json.setup-complete"
           ./ui-source/build/libreecho-web --backend mock --web-root ./ui-source/web \
             --listen 127.0.0.1:18080 --mock-config ./ui-source/config/mock-state.json \
             --config "$RUNNER_TEMP/libreecho-demo-config.json" --seed 42 --dev-controls \
