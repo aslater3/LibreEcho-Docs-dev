@@ -40,7 +40,11 @@ jobs:
           persist-credentials: false
       - name: Build UI demo source
         if: steps.ui_checkout.outcome == 'success'
-        run: make -C ui-source -j2
+        # The demo runs only the web server against the mock backend. Building
+        # every daemon also needs the pinned mbedTLS that the UI's own CI
+        # provides (ESPHome playback), so build just the web binary, with the
+        # dev controls the full build would enable.
+        run: make -C ui-source -j2 build/libreecho-web CFLAGS="-O2 -DLE_DEV_CONTROLS=1"
       - name: Start UI demo source
         if: steps.ui_checkout.outcome == 'success'
         run: |
